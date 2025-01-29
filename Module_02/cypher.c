@@ -17,7 +17,24 @@ int main(void)
         printf("Invalid input. Please enter a valid number.\n");
         return 1;
     }
+  // Consume the newline character left by scanf
+    getchar();
 
+    // Get the text to cipher
+    char text[100]; // Buffer size for input text
+    printf("Type in your message to be cyphered: \n");
+    
+    // Use fgets to avoid buffer overflow, and read the message
+    fgets(text, sizeof(text), stdin);
+
+    // Remove the newline character left by fgets
+    text[strcspn(text, "\n")] = '\0';
+
+    // Cipher the text
+    char *cypheredText = cypher(text, shift);
+    printf("Cyphered text: %s \n", cypheredText);
+
+    return 0;
   
 }
 
