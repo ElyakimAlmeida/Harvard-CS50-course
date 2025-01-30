@@ -126,7 +126,17 @@ int main(int argc, string argv[])
 // Record preference if vote is valid
 bool vote(int voter, int rank, string name)
 {
-   
+    for (i = 0; i < voter_count; i++)
+    {
+        for (j = 0; j < candidates_count; j++)
+        {
+            if (strcmp(name,candidate[i].name) == 0)
+            {
+                candidate[i].votes + 1
+            }
+        }
+    }
+    return false;
 }
 
 // Tabulate votes for non-eliminated candidates
