@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 // Max voters and candidates
 #define MAX_VOTERS 100
@@ -128,19 +129,45 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+// Helper function to remove leading and trailing spaces
+void trim_spaces(char *str)
+{
+    int start = 0;
+    int end = strlen(str) - 1;
+
+    // Remove leading spaces
+    while (str[start] == ' ' && start < end) start++;
+
+    // Remove trailing spaces
+    while (str[end] == ' ' && end > start) end--;
+
+    // Set the new string length
+    str[end + 1] = '\0';
+
+    // Shift the string to the front
+    for (int i = 0; i <= end; i++)
+    {
+        str[i] = str[start + i];
+    }
+}
+
+
 
 // Record preference if the vote is valid
 int vote(int voter, int rank, char *name)
 {
+       // Trim spaces from the input name
+    trim_spaces(name);
+
     for (int j = 0; j < candidate_count; j++)
     {
         if (strcmp(name, candidates[j].name) == 0)
         {
             preferences[voter][j] = rank;
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 }
 
 // Tabulate votes for non-eliminated candidates
